@@ -9,10 +9,10 @@ class UpdateUserRequest extends FormRequest
         $userId = $this->route()->getParameter('users');
 
         return [
-            'email' => "required|email|unique:users,email,{$userId}",
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'password' => 'confirmed',
+            'EMAIL' => "required|email|unique:users,email,{$userId}",
+            'FIRST_NAME' => 'required',
+            'LAST_NAME' => 'required',
+            'PASSWORD' => 'confirmed',
         ];
     }
 

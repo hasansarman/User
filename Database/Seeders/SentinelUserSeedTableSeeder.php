@@ -19,15 +19,15 @@ class SentinelUserSeedTableSeeder extends Seeder
         // Create an admin user
         $user = Sentinel::create(
             [
-                'email' => 'n.widart@gmail.com',
-                'password' => 'test',
-                'first_name' => 'Nicolas',
-                'last_name' => 'Widart',
+                'EMAIL' => 'n.widart@gmail.com',
+                'PASSWORD' => 'test',
+                'FIRST_NAME' => 'Nicolas',
+                'LAST_NAME' => 'Widart',
             ]
         );
         // Activate the admin directly
         $activation = Activation::create($user);
-        Activation::complete($user, $activation->code);
+        Activation::complete($user, $activation->CODE);
 
         // Find the group using the group id
         $adminGroup = Sentinel::findRoleBySlug('admin');

@@ -165,6 +165,6 @@ class SentryAuthentication implements Authentication
             return;
         }
 
-        return $user->id;
+        return $user->ID;
     }
 }

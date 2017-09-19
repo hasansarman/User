@@ -12,7 +12,7 @@ class ResetRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'EMAIL' => 'required|email',
         ];
     }
 

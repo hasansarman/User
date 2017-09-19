@@ -26,8 +26,8 @@ class UsherTableSeeder extends Seeder
     public function run()
     {
         $this->role->create(array(
-            'name'        => 'Admin',
-            'permissions' => [
+            'NAME'        => 'Admin',
+            'PERMISSIONS' => [
                 'dashboard.index' => 1,
                 /* Workbench */
                 'workshop.workbench.index' => 1,
@@ -91,8 +91,8 @@ class UsherTableSeeder extends Seeder
 
         // Create an Users group
         $this->role->create(array(
-            'name'        => 'User',
-            'permissions' => [
+            'NAME'        => 'User',
+            'PERMISSIONS' => [
                 'dashboard.index' => 1,
             ],
         ));

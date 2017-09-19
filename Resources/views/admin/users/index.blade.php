@@ -41,34 +41,34 @@
                         <?php foreach ($users as $user): ?>
                             <tr>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">
-                                        {{ $user->id }}
+                                    <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
+                                        {{ $user->ID }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">
-                                        {{ $user->first_name }}
+                                    <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
+                                        {{ $user->FIRST_NAME }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">
-                                        {{ $user->last_name }}
+                                    <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
+                                        {{ $user->LAST_NAME }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">
-                                        {{ $user->email }}
+                                    <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
+                                        {{ $user->EMAIL }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">
-                                        {{ $user->created_at }}
+                                    <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
+                                        {{ $user->CREATED_AT }}
                                     </a>
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.user.user.edit', [$user->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <?php if ($user->id != $currentUser->id): ?>
+                                        <a href="{{ route('admin.user.user.edit', [$user->ID]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <?php if ($user->ID != $currentUser->ID): ?>
                                             <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.user.destroy', [$user->id]) }}"><i class="fa fa-trash"></i></button>
                                         <?php endif; ?>
                                     </div>

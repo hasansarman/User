@@ -73,7 +73,7 @@ class UserRegistration
      */
     private function createProfileForUser($user)
     {
-        $profileData = array_merge($this->input['profile'], ['user_id' => $user->id]);
+        $profileData = array_merge($this->input['profile'], ['user_id' => $user->ID]);
         app('Modules\Profile\Repositories\ProfileRepository')->create($profileData);
     }
 }

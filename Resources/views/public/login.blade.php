@@ -14,17 +14,17 @@
         @include('flash::message')
 
         {!! Form::open(['route' => 'login.post']) !!}
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" autofocus
-                       name="email" placeholder="{{ trans('user::auth.email') }}" value="{{ old('email')}}">
+            <div class="form-group has-feedback {{ $errors->has('EMAIL') ? ' has-error' : '' }}">
+                <input type="EMAIL" class="form-control" autofocus
+                       name="EMAIL" placeholder="{{ trans('user::auth.email') }}" value="{{ old('EMAIL')}}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
             </div>
-            <div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-                <input type="password" class="form-control"
-                       name="password" placeholder="{{ trans('user::auth.password') }}" value="{{ old('password')}}">
+            <div class="form-group has-feedback {{ $errors->has('PASSWORD') ? ' has-error' : '' }}">
+                <input type="PASSWORD" class="form-control"
+                       name="PASSWORD" placeholder="{{ trans('user::auth.password') }}" value="{{ old('PASSWORD')}}">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
+                {!! $errors->first('PASSWORD', '<span class="help-block">:message</span>') !!}
             </div>
             <div class="row">
                 <div class="col-xs-8">

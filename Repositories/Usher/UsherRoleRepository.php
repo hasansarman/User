@@ -37,8 +37,8 @@ class UsherRoleRepository implements RoleRepository
         $role = new $entity;
 
         $role->create(
-            $data['name'],
-            $data['permissions']
+            $data['NAME'],
+            $data['PERMISSIONS']
         );
 
         $this->role->persist($role);
@@ -68,8 +68,8 @@ class UsherRoleRepository implements RoleRepository
         $role = $this->role->find($id);
 
         $role->update(
-            $data['name'],
-            $data['permissions']
+            $data['NAME'],
+            $data['PERMISSIONS']
         );
 
         $this->role->persist($role);

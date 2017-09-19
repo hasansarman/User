@@ -52,8 +52,8 @@ class UserResetter
             throw new UserNotFoundException();
         }
 
-        $code = array_get($data, 'code');
-        $password = array_get($data, 'password');
+        $code = array_get($data, 'CODE');
+        $password = array_get($data, 'PASSWORD');
         if (! $this->auth->completeResetPassword($user, $code, $password)) {
             throw new InvalidOrExpiredResetCode();
         }

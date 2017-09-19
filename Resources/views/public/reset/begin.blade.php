@@ -14,11 +14,11 @@
         @include('flash::message')
 
         {!! Form::open(['route' => 'reset.post']) !!}
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" autofocus
-                       name="email" placeholder="{{ trans('user::auth.email') }}" value="{{ old('email')}}">
+            <div class="form-group has-feedback {{ $errors->has('EMAIL') ? ' has-error' : '' }}">
+                <input type="EMAIL" class="form-control" autofocus
+                       name="EMAIL" placeholder="{{ trans('user::auth.email') }}" value="{{ old('EMAIL')}}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
             </div>
 
             <div class="row">

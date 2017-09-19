@@ -26,17 +26,17 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    {!! Form::label('name', trans('user::roles.form.name')) !!}
-                                    {!! Form::text('name', Input::old('name', $role->name), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
-                                    {!! $errors->first('name', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('NAME') ? ' has-error' : '' }}">
+                                    {!! Form::label('NAME', trans('user::roles.form.name')) !!}
+                                    {!! Form::text('NAME', Input::old('NAME', $role->NAME), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
+                                    {!! $errors->first('NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
-                                    {!! Form::label('slug', trans('user::roles.form.slug')) !!}
-                                    {!! Form::text('slug', Input::old('slug', $role->slug), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
-                                    {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('SLUG') ? ' has-error' : '' }}">
+                                    {!! Form::label('SLUG', trans('user::roles.form.slug')) !!}
+                                    {!! Form::text('SLUG', Input::old('slug', $role->SLUG), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
+                                    {!! $errors->first('SLUG', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <ul>
                                     <?php foreach ($role->users as $user): ?>
                                         <li>
-                                            <a href="{{ URL::route('admin.user.user.edit', [$user->id]) }}">{{ $user->present()->fullname() }}</a>
+                                            <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">{{ $user->present()->fullname() }}</a>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>

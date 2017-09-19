@@ -34,8 +34,8 @@ class SentryUserRepository implements UserRepository
      */
     public function createWithRoles($data, $roles, $activated = false)
     {
-        $user = Sentry::createUser(array_merge($data, ['activated' => $activated]));
-        $user->activated = $activated ? 1 : 0;
+        $user = Sentry::createUser(array_merge($data, ['ACTIVATED' => $activated]));
+        $user->ACTIVATED = $activated ? 1 : 0;
         $user->save();
         if (!empty($roles)) {
             foreach ($roles as $roleId) {
@@ -86,7 +86,7 @@ class SentryUserRepository implements UserRepository
             $userRoles = $user->groups()->get()->toArray();
             $cleanedRoles = [];
             foreach ($userRoles as $role) {
-                $cleanedRoles[$role['id']] = $role;
+                $cleanedRoles[$role['ID']] = $role;
             }
             // Set the new roles
             foreach ($roles as $roleId) {

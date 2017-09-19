@@ -39,23 +39,23 @@
                         <?php foreach ($roles as $role): ?>
                             <tr>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.role.edit', [$role->id]) }}">
-                                        {{ $role->id }}
+                                    <a href="{{ URL::route('admin.user.role.edit', [$role->ID]) }}">
+                                        {{ $role->ID }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.role.edit', [$role->id]) }}">
-                                        {{ $role->name }}
+                                    <a href="{{ URL::route('admin.user.role.edit', [$role->ID]) }}">
+                                        {{ $role->NAME }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::route('admin.user.role.edit', [$role->id]) }}">
-                                        {{ $role->created_at }}
+                                    <a href="{{ URL::route('admin.user.role.edit', [$role->ID]) }}">
+                                        {{ $role->CREATED_AT }}
                                     </a>
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.user.role.edit', [$role->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ route('admin.user.role.edit', [$role->ID]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.role.destroy', [$role->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>

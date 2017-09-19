@@ -13,16 +13,16 @@
         @include('flash::message')
 
         {!! Form::open() !!}
-        <div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-            <input type="password" class="form-control" autofocus
-                   name="password" placeholder="{{ trans('user::auth.password') }}">
+        <div class="form-group has-feedback {{ $errors->has('PASSWORD') ? ' has-error' : '' }}">
+            <input type="PASSWORD" class="form-control" autofocus
+                   name="PASSWORD" placeholder="{{ trans('user::auth.password') }}">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
+            {!! $errors->first('PASSWORD', '<span class="help-block">:message</span>') !!}
         </div>
-        <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? ' has-error has-feedback' : '' }}">
-            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
+        <div class="form-group has-feedback {{ $errors->has('PASSWORD_CONFIRMATION') ? ' has-error has-feedback' : '' }}">
+            <input type="PASSWORD" name="PASSWORD_CONFIRMATION" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-            {!! $errors->first('password_confirmation', '<span class="help-block">:message</span>') !!}
+            {!! $errors->first('PASSWORD_CONFIRMATION', '<span class="help-block">:message</span>') !!}
         </div>
 
         <div class="row">

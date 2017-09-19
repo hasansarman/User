@@ -35,40 +35,40 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                                    {!! Form::label('first_name', trans('user::users.form.first-name')) !!}
-                                    {!! Form::text('first_name', Input::old('first_name'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
-                                    {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('FIRST_NAME') ? ' has-error' : '' }}">
+                                    {!! Form::label('FIRST_NAME', trans('user::users.form.first-name')) !!}
+                                    {!! Form::text('FIRST_NAME', Input::old('first_name'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
+                                    {!! $errors->first('FIRST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                                    {!! Form::label('last_name', trans('user::users.form.last-name')) !!}
-                                    {!! Form::text('last_name', Input::old('last_name'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
-                                    {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('LAST_NAME') ? ' has-error' : '' }}">
+                                    {!! Form::label('LAST_NAME', trans('user::users.form.last-name')) !!}
+                                    {!! Form::text('LAST_NAME', Input::old('LAST_NAME'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
+                                    {!! $errors->first('LAST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    {!! Form::label('email', trans('user::users.form.email')) !!}
-                                    {!! Form::email('email', Input::old('email'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
-                                    {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('EMAIL') ? ' has-error' : '' }}">
+                                    {!! Form::label('EMAIL', trans('user::users.form.email')) !!}
+                                    {!! Form::email('EMAIL', Input::old('EMAIL'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
+                                    {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    {!! Form::label('password', trans('user::users.form.password')) !!}
-                                    {!! Form::password('password', ['class' => 'form-control']) !!}
-                                    {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('PASSWORD') ? ' has-error' : '' }}">
+                                    {!! Form::label('PASSWORD', trans('user::users.form.password')) !!}
+                                    {!! Form::password('PASSWORD', ['class' => 'form-control']) !!}
+                                    {!! $errors->first('PASSWORD', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    {!! Form::label('password_confirmation', trans('user::users.form.password-confirmation')) !!}
-                                    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
-                                    {!! $errors->first('password_confirmation', '<span class="help-block">:message</span>') !!}
+                                <div class="form-group{{ $errors->has('PASSWORD_CONFIRMATION') ? ' has-error' : '' }}">
+                                    {!! Form::label('PASSWORD_CONFIRMATION', trans('user::users.form.password-confirmation')) !!}
+                                    {!! Form::password('PASSWORD_CONFIRMATION', ['class' => 'form-control']) !!}
+                                    {!! $errors->first('PASSWORD_CONFIRMATION', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                     <label>{{ trans('user::users.tabs.roles') }}</label>
                                     <select multiple="" class="form-control" name="roles[]">
                                         <?php foreach ($roles as $role): ?>
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            <option value="{{ $role->ID }}">{{ $role->NAME }}</option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

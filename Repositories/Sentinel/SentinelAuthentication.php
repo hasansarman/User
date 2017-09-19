@@ -88,7 +88,7 @@ class SentinelAuthentication implements Authentication
      */
     public function createActivation($user)
     {
-        return Activation::create($user)->code;
+        return Activation::create($user)->CODE;
     }
 
     /**
@@ -100,7 +100,7 @@ class SentinelAuthentication implements Authentication
     {
         $reminder = Reminder::exists($user) ?: Reminder::create($user);
 
-        return $reminder->code;
+        return $reminder->CODE;
     }
 
     /**
@@ -148,6 +148,6 @@ class SentinelAuthentication implements Authentication
             return;
         }
 
-        return $user->id;
+        return $user->ID;
     }
 }

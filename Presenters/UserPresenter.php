@@ -11,7 +11,7 @@ class UserPresenter extends Presenter
      */
     public function gravatar($size = 90)
     {
-        $email = md5($this->email);
+        $email = md5($this->EMAIL);
 
         return "//www.gravatar.com/avatar/$email?s=$size";
     }
@@ -21,6 +21,6 @@ class UserPresenter extends Presenter
      */
     public function fullname()
     {
-        return $this->name ?: $this->first_name . ' ' . $this->last_name;
+        return $this->NAME ?: $this->FIRST_NAME . ' ' . $this->LAST_NAME;
     }
 }

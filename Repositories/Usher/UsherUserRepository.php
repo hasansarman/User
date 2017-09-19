@@ -50,20 +50,20 @@ class UsherUserRepository implements UserRepository
         $user = new $entity;
 
         $name = new Name(
-            $data['first_name'],
-            $data['last_name']
+            $data['FIRST_NAME'],
+            $data['LAST_NAME']
         );
 
         $email = new Email(
-            $data['email']
+            $data['EMAIL']
         );
 
         $password = new Password(
-            $data['password']
+            $data['PASSWORD']
         );
 
-        if (isset($data['permissions']) && !empty($data['permissions'])) {
-            $user->setPermissions($data['permissions']);
+        if (isset($data['PERMISSIONS']) && !empty($data['PERMISSIONS'])) {
+            $user->setPermissions($data['PERMISSIONS']);
         }
 
         $user = $user->register($name, $email, $password);
@@ -117,18 +117,18 @@ class UsherUserRepository implements UserRepository
     public function update($user, $data)
     {
         $name = new Name(
-            $data['first_name'],
-            $data['last_name']
+            $data['FIRST_NAME'],
+            $data['LAST_NAME']
         );
 
         $email = new Email(
-            $data['email']
+            $data['EMAIL']
         );
 
         $password = null;
-        if (isset($data['password'])) {
+        if (isset($data['PASSWORD'])) {
             $password = new Password(
-                $data['password']
+                $data['PASSWORD']
             );
 
             if ($password->equals($user->getPassword())) {
@@ -136,8 +136,8 @@ class UsherUserRepository implements UserRepository
             }
         }
 
-        if (isset($data['permissions']) && !empty($data['permissions'])) {
-            $user->setPermissions($data['permissions']);
+        if (isset($data['PERMISSIONS']) && !empty($data['PERMISSIONS'])) {
+            $user->setPermissions($data['PERMISSIONS']);
         }
 
         $user = $user->update($name, $email, $password);

@@ -17,8 +17,8 @@ class SentryGroupSeedTableSeeder extends Seeder
 
         // Create an Admin group
         Sentry::createGroup(array(
-            'name'        => 'Admin',
-            'permissions' => [
+            'NAME'        => 'Admin',
+            'PERMISSIONS' => [
                 'dashboard.index' => 1,
                 'dashboard.grid.save' => 1,
                 'dashboard.grid.reset' => 1,
@@ -79,8 +79,8 @@ class SentryGroupSeedTableSeeder extends Seeder
 
         // Create an Users group
         Sentry::createGroup(array(
-            'name'        => 'User',
-            'permissions' => [
+            'NAME'        => 'User',
+            'PERMISSIONS' => [
                 'dashboard.index' => 1,
             ],
         ));

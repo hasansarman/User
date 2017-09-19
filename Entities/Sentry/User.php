@@ -14,12 +14,12 @@ class User extends SentryModel implements UserInterface
     use PresentableTrait;
 
     protected $fillable = [
-        'email',
-        'password',
-        'permissions',
-        'first_name',
-        'last_name',
-        'activated',
+        'EMAIL',
+        'PASSWORD',
+        'PERMISSIONS',
+        'FIRST_NAME',
+        'LAST_NAME',
+        'ACTIVATED',
     ];
 
     protected $presenter = 'Modules\User\Presenters\UserPresenter';

@@ -22,7 +22,7 @@ return [
     | Define which column(s) you'd like to use to login with, currently
     | only supported by the Sentinel user driver
     */
-    'login-columns' => ['email'],
+    'login-columns' => ['EMAIL'],
     /*
     |--------------------------------------------------------------------------
     | Allow anonymous user registration
@@ -36,10 +36,10 @@ return [
     | Set the fillable user fields, those fields will be mass assigned
     */
     'fillable' => [
-        'email',
-        'password',
-        'permissions',
-        'first_name',
-        'last_name',
+        'EMAIL',
+        'PASSWORD',
+        'PERMISSIONS',
+        'FIRST_NAME',
+        'LAST_NAME',
     ],
 ];

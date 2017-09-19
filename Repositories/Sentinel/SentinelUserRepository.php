@@ -172,7 +172,7 @@ class SentinelUserRepository implements UserRepository
      */
     private function hashPassword(array &$data)
     {
-        $data['password'] = Hash::make($data['password']);
+        $data['PASSWORD'] = Hash::make($data['PASSWORD']);
     }
 
     /**
@@ -182,13 +182,13 @@ class SentinelUserRepository implements UserRepository
      */
     private function checkForNewPassword(array &$data)
     {
-        if (! $data['password']) {
-            unset($data['password']);
+        if (! $data['PASSWORD']) {
+            unset($data['PASSWORD']);
 
             return;
         }
 
-        $data['password'] = Hash::make($data['password']);
+        $data['PASSWORD'] = Hash::make($data['PASSWORD']);
     }
 
     /**
@@ -198,14 +198,14 @@ class SentinelUserRepository implements UserRepository
      */
     private function checkForManualActivation($user, array &$data)
     {
-        if (Activation::completed($user) && !$data['activated']) {
+        if (Activation::completed($user) && !$data['ACTIVATED']) {
             return Activation::remove($user);
         }
 
-        if (!Activation::completed($user) && $data['activated']) {
+        if (!Activation::completed($user) && $data['ACTIVATED']) {
             $activation = Activation::create($user);
 
-            return Activation::complete($user, $activation->code);
+            return Activation::complete($user, $activation->CODE);
         }
     }
 }
