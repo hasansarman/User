@@ -1,4 +1,6 @@
-<?php namespace Modules\User\Http\Requests;
+<?php
+
+namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -10,7 +12,8 @@ class CreateUserRequest extends FormRequest
             'FIRST_NAME' => 'required',
             'LAST_NAME' => 'required',
             'EMAIL' => 'required|unique:users|email',
-            'PASSWORD' => 'required|min:3|confirmed',
+            'PASSWORD' => 'required|min:3',
+            'PASSWORD_CONFIRMATION' => 'min:3|same:PASSWORD',
         ];
     }
 

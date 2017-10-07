@@ -2,7 +2,7 @@
 
 @section('content-header')
 <h1>
-    {{ trans('user::roles.title.edit') }} <small>{{ $role->name }}</small>
+    {{ trans('user::roles.title.edit') }} <small>{{ $role->NAME }}</small>
 </h1>
 <ol class="breadcrumb">
     <li><a href="{{ URL::route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
@@ -12,7 +12,7 @@
 @stop
 
 @section('content')
-{!! Form::open(['route' => ['admin.user.role.update', $role->id], 'method' => 'put']) !!}
+{!! Form::open(['route' => ['admin.user.role.update', $role->ID], 'method' => 'put']) !!}
 <div class="row">
     <div class="col-md-12">
         <div class="nav-tabs-custom">
@@ -28,14 +28,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group{{ $errors->has('NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('NAME', trans('user::roles.form.name')) !!}
-                                    {!! Form::text('NAME', Input::old('NAME', $role->NAME), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
+                                    {!! Form::text('NAME', old('NAME', $role->NAME), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
                                     {!! $errors->first('NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group{{ $errors->has('SLUG') ? ' has-error' : '' }}">
                                     {!! Form::label('SLUG', trans('user::roles.form.slug')) !!}
-                                    {!! Form::text('SLUG', Input::old('slug', $role->SLUG), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
+                                    {!! Form::text('SLUG', old('slug', $role->SLUG), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
                                     {!! $errors->first('SLUG', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 <ul>
                                     <?php foreach ($role->users as $user): ?>
                                         <li>
-                                            <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">{{ $user->present()->fullname() }}</a>
+                                            <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">{!! rad_helper_user_fullname($user)  !!} </a>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -63,7 +63,6 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('user::button.update') }}</button>
-                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
                     <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.user.role.index')}}"><i class="fa fa-times"></i> {{ trans('user::button.cancel') }}</a>
                 </div>
             </div><!-- /.tab-content -->

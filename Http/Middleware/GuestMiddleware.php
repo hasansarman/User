@@ -1,7 +1,9 @@
-<?php namespace Modules\User\Http\Middleware;
+<?php
+
+namespace Modules\User\Http\Middleware;
 
 use Illuminate\Support\Facades\Redirect;
-use Modules\Core\Contracts\Authentication;
+use Modules\User\Contracts\Authentication;
 
 class GuestMiddleware
 {
@@ -25,7 +27,7 @@ class GuestMiddleware
     public function handle($request, \Closure $next)
     {
         if ($this->auth->check()) {
-            return Redirect::route(config('asgard.user.users.redirect_route_after_login'));
+            return Redirect::route(config('asgard.user.config.redirect_route_after_login'));
         }
 
         return $next($request);

@@ -10,17 +10,17 @@
     </div>
     <div class="login-box-body">
         <p class="login-box-msg">{{ trans('user::auth.reset password') }}</p>
-        @include('flash::message')
+        @include('partials.notifications')
 
         {!! Form::open() !!}
         <div class="form-group has-feedback {{ $errors->has('PASSWORD') ? ' has-error' : '' }}">
-            <input type="PASSWORD" class="form-control" autofocus
+            <input type="password" class="form-control" autofocus
                    name="PASSWORD" placeholder="{{ trans('user::auth.password') }}">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             {!! $errors->first('PASSWORD', '<span class="help-block">:message</span>') !!}
         </div>
         <div class="form-group has-feedback {{ $errors->has('PASSWORD_CONFIRMATION') ? ' has-error has-feedback' : '' }}">
-            <input type="PASSWORD" name="PASSWORD_CONFIRMATION" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
+            <input type="password" name="PASSWORD_CONFIRMATION" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             {!! $errors->first('PASSWORD_CONFIRMATION', '<span class="help-block">:message</span>') !!}
         </div>

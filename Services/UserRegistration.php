@@ -1,6 +1,8 @@
-<?php namespace Modules\User\Services;
+<?php
 
-use Modules\Core\Contracts\Authentication;
+namespace Modules\User\Services;
+
+use Modules\User\Contracts\Authentication;
 use Modules\User\Events\UserHasRegistered;
 use Modules\User\Repositories\RoleRepository;
 
@@ -53,7 +55,7 @@ class UserRegistration
 
     private function assignUserToUsersGroup($user)
     {
-        $role = $this->role->findByName('User');
+        $role = $this->role->findByName(config('asgard.user.config.default_role', 'User'));
 
         $this->auth->assignRole($user, $role);
     }
@@ -73,7 +75,7 @@ class UserRegistration
      */
     private function createProfileForUser($user)
     {
-        $profileData = array_merge($this->input['profile'], ['user_id' => $user->ID]);
+        $profileData = array_merge($this->input['profile'], ['USER_ID' => $user->ID]);
         app('Modules\Profile\Repositories\ProfileRepository')->create($profileData);
     }
 }

@@ -11,11 +11,11 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">{{ trans('user::auth.to reset password complete this form') }}</p>
-        @include('flash::message')
+        @include('partials.notifications')
 
         {!! Form::open(['route' => 'reset.post']) !!}
             <div class="form-group has-feedback {{ $errors->has('EMAIL') ? ' has-error' : '' }}">
-                <input type="EMAIL" class="form-control" autofocus
+                <input type="email" class="form-control" autofocus
                        name="EMAIL" placeholder="{{ trans('user::auth.email') }}" value="{{ old('EMAIL')}}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}

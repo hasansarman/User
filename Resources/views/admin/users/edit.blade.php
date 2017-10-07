@@ -2,7 +2,7 @@
 
 @section('content-header')
 <h1>
-    {{ trans('user::users.title.edit-user') }} <small>{{ $user->present()->fullname() }}</small>
+    {{ trans('user::users.title.edit-user') }} <small><?php rad_helper_user_fullname($user);?></small>
 </h1>
 <ol class="breadcrumb">
     <li><a href="{{ URL::route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
@@ -29,21 +29,21 @@
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('FIRST_NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('FIRST_NAME', trans('user::users.form.first-name')) !!}
-                                    {!! Form::text('FIRST_NAME', Input::old('first_name', $user->FIRST_NAME), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
+                                    {!! Form::text('FIRST_NAME', old('FIRST_NAME', $user->FIRST_NAME), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
                                     {!! $errors->first('FIRST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('LAST_NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('LAST_NAME', trans('user::users.form.last-name')) !!}
-                                    {!! Form::text('LAST_NAME', Input::old('last_name', $user->LAST_NAME), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
+                                    {!! Form::text('LAST_NAME', old('LAST_NAME', $user->LAST_NAME), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
                                     {!! $errors->first('LAST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('EMAIL') ? ' has-error' : '' }}">
                                     {!! Form::label('EMAIL', trans('user::users.form.email')) !!}
-                                    {!! Form::email('EMAIL', Input::old('email', $user->EMAIL), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
+                                    {!! Form::email('EMAIL', old('EMAIL', $user->EMAIL), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
                                     {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
@@ -59,10 +59,10 @@
                                                type="checkbox"
                                                class="flat-blue"
                                                {{ $user->ID === $currentUser->ID ? 'disabled' : '' }}
-                                               {{ Input::old('ACTIVATED', $oldValue) }}
+                                               {{ old('ACTIVATED', $oldValue) }}
                                                value="1" />
                                         {{ trans('user::users.form.is activated') }}
-                                        {!! $errors->first('activated', '<span class="help-block">:message</span>') !!}
+                                        {!! $errors->first('ACTIVATED', '<span class="help-block">:message</span>') !!}
                                     </label>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 <label>{{ trans('user::users.tabs.roles') }}</label>
                                 <select multiple="" class="form-control" name="roles[]">
                                     <?php foreach ($roles as $role): ?>
-                                        <option value="{{ $role->id }}" <?php echo $user->hasRoleId($role->ID) ? 'selected' : '' ?>>{{ $role->NAME }}</option>
+                                        <option value="{{ $role->ID }}" <?php echo $user->hasRoleId($role->ID) ? 'selected' : '' ?>>{{ $role->NAME }}</option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h4>{{ trans('user::users.tabs.or send reset password mail') }}</h4>
-                                <a href="{{ route("admin.user.user.sendResetPassword", $user->id) }}" class="btn btn-flat bg-maroon">
+                                <a href="{{ route("admin.user.user.sendResetPassword", $user->ID) }}" class="btn btn-flat bg-maroon">
                                     {{ trans('user::users.send reset password email') }}
                                 </a>
                             </div>
@@ -112,9 +112,13 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary btn-flat">{{ trans('user::button.update') }}</button>
-                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
-                    <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.user.user.index')}}"><i class="fa fa-times"></i> {{ trans('user::button.cancel') }}</a>
+                    <button type="submit" class="btn btn-primary btn-flat" name="button" value="index">
+                        <i class="fa fa-angle-left"></i>
+                        {{ trans('core::core.button.update and back') }}
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
+                    <button type="reset" class="btn btn-default btn-flat" name="button">{{ trans('core::core.button.reset') }}</button>
+                    <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.user.user.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
                 </div>
             </div>
         </div>

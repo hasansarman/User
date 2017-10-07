@@ -1,12 +1,15 @@
 <?php namespace Modules\User\Http\Controllers\Admin;
 
-use Modules\Core\Contracts\Authentication;
+
+use Illuminate\Support\Facades\Log;
+use Modules\User\Contracts\Authentication;
 use Modules\User\Events\UserHasBegunResetProcess;
 use Modules\User\Http\Requests\CreateUserRequest;
 use Modules\User\Http\Requests\UpdateUserRequest;
 use Modules\User\Permissions\PermissionManager;
 use Modules\User\Repositories\RoleRepository;
 use Modules\User\Repositories\UserRepository;
+use Laracasts\Flash\Flash;
 
 class UserController extends BaseUserModuleController
 {
@@ -30,14 +33,14 @@ class UserController extends BaseUserModuleController
      * @param Authentication    $auth
      */
     public function __construct(
-        PermissionManager $permissions,
+        PermissionManager $PERMISSIONS,
         UserRepository $user,
         RoleRepository $role,
         Authentication $auth
     ) {
         parent::__construct();
 
-        $this->permissions = $permissions;
+        $this->PERMISSIONS = $PERMISSIONS;
         $this->user = $user;
         $this->role = $role;
         $this->auth = $auth;
@@ -77,11 +80,13 @@ class UserController extends BaseUserModuleController
      */
     public function store(CreateUserRequest $request)
     {
+
+        Log::error($request);
         $data = $this->mergeRequestWithPermissions($request);
 
         $this->user->createWithRoles($data, $request->roles, true);
 
-        flash(trans('user::messages.user created'));
+      //  flash(trans('user::messages.user created'));
 
         return redirect()->route('admin.user.user.index');
     }
@@ -95,7 +100,7 @@ class UserController extends BaseUserModuleController
     public function edit($id)
     {
         if (!$user = $this->user->find($id)) {
-            flash()->error(trans('user::messages.user not found'));
+          //  flash()->error(trans('user::messages.user not found'));
 
             return redirect()->route('admin.user.user.index');
         }
@@ -113,13 +118,19 @@ class UserController extends BaseUserModuleController
      * @param  UpdateUserRequest $request
      * @return Response
      */
+//UpdateUserRequest
     public function update($id, UpdateUserRequest $request)
     {
+       // echo "foo";
+      //  dd($request->all());
+
+        // To see all the posted stuff
+     //   dd($request->all());
         $data = $this->mergeRequestWithPermissions($request);
-
+//
         $this->user->updateAndSyncRoles($id, $data, $request->roles);
-
-        flash(trans('user::messages.user updated'));
+//
+      //  flash(trans('user::messages.user updated'));
 
         return redirect()->route('admin.user.user.index');
     }
@@ -134,7 +145,7 @@ class UserController extends BaseUserModuleController
     {
         $this->user->delete($id);
 
-        flash(trans('user::messages.user deleted'));
+        //flash(trans('user::messages.user deleted'));
 
         return redirect()->route('admin.user.user.index');
     }
@@ -146,8 +157,8 @@ class UserController extends BaseUserModuleController
 
         event(new UserHasBegunResetProcess($user, $code));
 
-        flash(trans('user::auth.reset password email was sent'));
+        //flash(trans('user::auth.reset password email was sent'));
 
-        return redirect()->route('admin.user.user.edit', $user->id);
+        return redirect()->route('admin.user.user.edit', $user->ID);
     }
 }

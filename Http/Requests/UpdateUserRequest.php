@@ -1,4 +1,6 @@
-<?php namespace Modules\User\Http\Requests;
+<?php
+
+namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -6,14 +8,15 @@ class UpdateUserRequest extends FormRequest
 {
     public function rules()
     {
-        $userId = $this->route()->getParameter('users');
+        $userId = $this->route()->parameter('users');
 
-        return [
-            'EMAIL' => "required|email|unique:users,email,{$userId}",
+        /*return [
+            'EMAIL' => "required",
             'FIRST_NAME' => 'required',
             'LAST_NAME' => 'required',
             'PASSWORD' => 'confirmed',
-        ];
+        ];*/
+        return [];
     }
 
     public function authorize()

@@ -20,7 +20,7 @@
                 </a>
             </div>
         </div>
-        <div class="box box">
+        <div class="box box box-primary">
             <div class="box-header">
             </div>
             <!-- /.box-header -->
@@ -50,13 +50,13 @@
                                 </td>
                                 <td>
                                     <a href="{{ URL::route('admin.user.role.edit', [$role->ID]) }}">
-                                        {{ $role->CREATED_AT }}
+                                        {{ $role->IDATE }}
                                     </a>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('admin.user.role.edit', [$role->ID]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.role.destroy', [$role->id]) }}"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.role.destroy', [$role->ID]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>

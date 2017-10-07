@@ -1,4 +1,6 @@
-<?php namespace Modules\User\Database\Seeders;
+<?php
+
+namespace Modules\User\Database\Seeders;
 
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Database\Eloquent\Model;
@@ -20,93 +22,84 @@ class SentinelGroupSeedTableSeeder extends Seeder
         // Create an Admin group
         $groups->createModel()->create(
             [
-                'name' => 'Admin',
-                'slug' => 'admin',
+                'NAME' => 'Admin',
+                'SLUG' => 'admin',
             ]
         );
 
-
-
-//tempo
         // Create an Users group
         $groups->createModel()->create(
             [
-                'name' => 'User',
-                'slug' => 'user',
+                'NAME' => 'User',
+                'SLUG' => 'user',
             ]
         );
 
         // Save the permissions
         $group = Sentinel::findRoleBySlug('admin');
         $group->permissions = [
+            'core.sidebar.group' => true,
+            /* Dashboard */
             'dashboard.index' => true,
-            'dashboard.grid.save' => true,
-            'dashboard.grid.reset' => true,
+            'dashboard.update' => true,
+            'dashboard.reset' => true,
             /* Workbench */
+            'workshop.sidebar.group' => true,
             'workshop.modules.index' => true,
             'workshop.modules.show' => true,
+            'workshop.modules.update' => true,
             'workshop.modules.disable' => true,
             'workshop.modules.enable' => true,
+            'workshop.modules.publish' => true,
             'workshop.themes.index' => true,
             'workshop.themes.show' => true,
+            'workshop.themes.publish' => true,
             /* Roles */
             'user.roles.index' => true,
             'user.roles.create' => true,
-            'user.roles.store' => true,
             'user.roles.edit' => true,
-            'user.roles.update' => true,
             'user.roles.destroy' => true,
             /* Users */
             'user.users.index' => true,
             'user.users.create' => true,
-            'user.users.store' => true,
             'user.users.edit' => true,
-            'user.users.update' => true,
             'user.users.destroy' => true,
+            /* API keys */
+            'account.api-keys.index' => true,
+            'account.api-keys.create' => true,
+            'account.api-keys.destroy' => true,
             /* Menu */
             'menu.menus.index' => true,
             'menu.menus.create' => true,
-            'menu.menus.store' => true,
             'menu.menus.edit' => true,
-            'menu.menus.update' => true,
             'menu.menus.destroy' => true,
-            'menu.menuitem.index' => true,
-            'menu.menuitem.create' => true,
-            'menu.menuitem.store' => true,
-            'menu.menuitem.edit' => true,
-            'menu.menuitem.update' => true,
-            'menu.menuitem.destroy' => true,
+            'menu.menuitems.index' => true,
+            'menu.menuitems.create' => true,
+            'menu.menuitems.edit' => true,
+            'menu.menuitems.destroy' => true,
             /* Media */
-            'media.media.index' => true,
-            'media.media.create' => true,
-            'media.media.store' => true,
-            'media.media.edit' => true,
-            'media.media.update' => true,
-            'media.media.destroy' => true,
-            'media.media-grid.index' => true,
-            'media.media-grid.ckIndex' => true,
+            'media.medias.index' => true,
+            'media.medias.create' => true,
+            'media.medias.edit' => true,
+            'media.medias.destroy' => true,
             /* Settings */
             'setting.settings.index' => true,
-            'setting.settings.store' => true,
-            'setting.settings.getModuleSettings' => true,
+            'setting.settings.edit' => true,
             /* Page */
             'page.pages.index' => true,
             'page.pages.create' => true,
-            'page.pages.store' => true,
             'page.pages.edit' => true,
-            'page.pages.update' => true,
             'page.pages.destroy' => true,
             /* Translation */
             'translation.translations.index' => true,
-            'translation.translations.update' => true,
+            'translation.translations.edit' => true,
             'translation.translations.export' => true,
             'translation.translations.import' => true,
-        ];
-        $group->save();
-
-        $group = Sentinel::findRoleBySlug('user');
-        $group->permissions = [
-            'dashboard.index' => true,
+            /* Tags */
+            'tag.tags.index' => true,
+            'tag.tags.create' => true,
+            'tag.tags.edit' => true,
+            'tag.tags.destroy' => true,
         ];
         $group->save();
     }

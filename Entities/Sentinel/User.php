@@ -1,14 +1,29 @@
-<?php namespace Modules\User\Entities\Sentinel;
+<?php
 
+namespace Modules\User\Entities\Sentinel;
+
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Users\EloquentUser;
-use Illuminate\Support\Facades\Config;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\User\Entities\UserInterface;
+use Modules\User\Entities\UserToken;
+use Modules\User\Presenters\UserPresenter;
 
-class User extends EloquentUser implements UserInterface
+class User extends EloquentUser implements UserInterface, AuthenticatableContract
 {
-    use PresentableTrait;
+    use PresentableTrait, Authenticatable;
+    const CREATED_AT = 'IDATE';
+protected $primaryKey="ID";
+    /**
+     * The name of the "updated at" column.
+     *
+     * @var string
+     */
+    const UPDATED_AT = 'UDATE';
+
+
 
     protected $fillable = [
         'EMAIL',
@@ -23,20 +38,27 @@ class User extends EloquentUser implements UserInterface
      */
     protected $loginNames = ['EMAIL'];
 
-    protected $presenter = 'Modules\User\Presenters\UserPresenter';
+    protected $presenter = UserPresenter::class;
 
     public function __construct(array $attributes = [])
     {
-        $this->loginNames = config('asgard.user.users.login-columns');
-        $this->fillable = config('asgard.user.users.fillable');
+        $this->loginNames = config('asgard.user.config.login-columns');
+        $this->fillable = config('asgard.user.config.fillable');
+        if (config()->has('asgard.user.config.presenter')) {
+            $this->presenter = config('asgard.user.config.presenter', UserPresenter::class);
+        }
+        if (config()->has('asgard.user.config.dates')) {
+            $this->dates = config('asgard.user.config.dates', []);
+        }
+        if (config()->has('asgard.user.config.casts')) {
+            $this->casts = config('asgard.user.config.casts', []);
+        }
 
         parent::__construct($attributes);
     }
 
     /**
-     * Checks if a user belongs to the given Role ID
-     * @param  int $roleId
-     * @return bool
+     * @inheritdoc
      */
     public function hasRoleId($roleId)
     {
@@ -44,9 +66,15 @@ class User extends EloquentUser implements UserInterface
     }
 
     /**
-     * Checks if a user belongs to the given Role Name
-     * @param  string $name
-     * @return bool
+     * @inheritdoc
+     */
+    public function hasRoleSlug($slug)
+    {
+        return $this->roles()->whereSlug($slug)->count() >= 1;
+    }
+
+    /**
+     * @inheritdoc
      */
     public function hasRoleName($name)
     {
@@ -54,11 +82,11 @@ class User extends EloquentUser implements UserInterface
     }
 
     /**
-     * Check if the current user is activated
-     * @return bool
+     * @inheritdoc
      */
     public function isActivated()
     {
+
         if (Activation::completed($this)) {
             return true;
         }
@@ -66,21 +94,51 @@ class User extends EloquentUser implements UserInterface
         return false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function api_keys()
+    {
+        return $this->hasMany(UserToken::class);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getFirstApiKey()
+    {
+        $userToken = $this->api_keys->first();
+
+        if ($userToken === null) {
+            return '';
+        }
+
+        return $userToken->ACCESS_TOKEN;
+    }
+
     public function __call($method, $parameters)
     {
-        $class_name = class_basename($this);
-
         #i: Convert array to dot notation
-        $config = implode('.', ['relations', $class_name, $method]);
+        $config = implode('.', ['asgard.user.config.relations', $method]);
 
         #i: Relation method resolver
-        if (Config::has($config)) {
-            $function = Config::get($config);
+        if (config()->has($config)) {
+            $function = config()->get($config);
 
             return $function($this);
         }
 
         #i: No relation found, return the call to parent (Eloquent) to handle it.
         return parent::__call($method, $parameters);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function hasAccess($permission)
+    {
+        $permissions = $this->getPermissionsInstance();
+
+        return $permissions->hasAccess($permission);
     }
 }

@@ -1,11 +1,13 @@
-<?php namespace Modules\User\Repositories\Sentinel;
+<?php
+
+namespace Modules\User\Repositories\Sentinel;
 
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Reminder;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Modules\Core\Contracts\Authentication;
+use Modules\User\Contracts\Authentication;
 use Modules\User\Events\UserHasActivatedAccount;
 
 class SentinelAuthentication implements Authentication
@@ -23,13 +25,13 @@ class SentinelAuthentication implements Authentication
                 return false;
             }
 
-            return 'Invalid login or password.';
+            return trans('user::users.invalid login or password');
         } catch (NotActivatedException $e) {
-            return 'Account not yet validated. Please check your email.';
+            return trans('user::users.account not validated');
         } catch (ThrottlingException $e) {
             $delay = $e->getDelay();
 
-            return "Your account is blocked for {$delay} second(s).";
+            return trans('user::users.account is blocked', ['delay' => $delay]);
         }
     }
 
@@ -131,9 +133,24 @@ class SentinelAuthentication implements Authentication
 
     /**
      * Check if the user is logged in
-     * @return mixed
+     * @return bool
      */
     public function check()
+    {
+        $user = Sentinel::check();
+
+        if ($user) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the currently logged in user
+     * @return \Modules\User\Entities\UserInterface
+     */
+    public function user()
     {
         return Sentinel::check();
     }
@@ -144,8 +161,10 @@ class SentinelAuthentication implements Authentication
      */
     public function id()
     {
-        if (! $user = $this->check()) {
-            return;
+        $user = $this->user();
+
+        if ($user === null) {
+            return 0;
         }
 
         return $user->ID;

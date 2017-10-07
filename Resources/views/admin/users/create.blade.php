@@ -37,21 +37,21 @@
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('FIRST_NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('FIRST_NAME', trans('user::users.form.first-name')) !!}
-                                    {!! Form::text('FIRST_NAME', Input::old('first_name'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
+                                    {!! Form::text('FIRST_NAME', old('FIRST_NAME'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.first-name')]) !!}
                                     {!! $errors->first('FIRST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('LAST_NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('LAST_NAME', trans('user::users.form.last-name')) !!}
-                                    {!! Form::text('LAST_NAME', Input::old('LAST_NAME'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
+                                    {!! Form::text('LAST_NAME', old('LAST_NAME'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.last-name')]) !!}
                                     {!! $errors->first('LAST_NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('EMAIL') ? ' has-error' : '' }}">
                                     {!! Form::label('EMAIL', trans('user::users.form.email')) !!}
-                                    {!! Form::email('EMAIL', Input::old('EMAIL'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
+                                    {!! Form::email('EMAIL', old('EMAIL'), ['class' => 'form-control', 'placeholder' => trans('user::users.form.email')]) !!}
                                     {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
@@ -95,7 +95,6 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('user::button.create') }}</button>
-                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
                     <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.user.user.index')}}"><i class="fa fa-times"></i> {{ trans('user::button.cancel') }}</a>
                 </div>
             </div>

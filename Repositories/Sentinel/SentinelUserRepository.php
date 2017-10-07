@@ -1,9 +1,16 @@
-<?php namespace Modules\User\Repositories\Sentinel;
+<?php
+
+namespace Modules\User\Repositories\Sentinel;
 
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Modules\User\Entities\Sentinel\User;
 use Modules\User\Events\UserHasRegistered;
+use Modules\User\Events\UserIsCreating;
+use Modules\User\Events\UserIsUpdating;
+use Modules\User\Events\UserWasCreated;
 use Modules\User\Events\UserWasUpdated;
 use Modules\User\Exceptions\UserNotFoundException;
 use Modules\User\Repositories\UserRepository;
@@ -36,14 +43,24 @@ class SentinelUserRepository implements UserRepository
 
     /**
      * Create a user resource
-     * @param $data
+     * @param  array $data
+     * @param  bool $activated
      * @return mixed
      */
-    public function create(array $data)
+    public function create(array $data, $activated = false)
     {
-        $user = $this->user->create((array) $data);
+        $this->hashPassword($data);
 
-        event(new UserHasRegistered($user));
+        event($event = new UserIsCreating($data));
+        $user = $this->user->create($event->getAttributes());
+
+        if ($activated) {
+            $this->activateUser($user);
+            event(new UserWasCreated($user));
+        } else {
+            event(new UserHasRegistered($user));
+        }
+        app(\Modules\User\Repositories\UserTokenRepository::class)->generateFor($user->ID);
 
         return $user;
     }
@@ -53,20 +70,17 @@ class SentinelUserRepository implements UserRepository
      * @param  array $data
      * @param  array $roles
      * @param bool $activated
+     * @return User
      */
     public function createWithRoles($data, $roles, $activated = false)
     {
-        $this->hashPassword($data);
-        $user = $this->create((array) $data);
+        $user = $this->create((array) $data, $activated);
 
         if (!empty($roles)) {
             $user->roles()->attach($roles);
         }
 
-        if ($activated) {
-            $activation = Activation::create($user);
-            Activation::complete($user, $activation->code);
-        }
+        return $user;
     }
 
     /**
@@ -75,6 +89,7 @@ class SentinelUserRepository implements UserRepository
      * @param array $data
      * @param array $roles
      * @param bool $activated
+     * @return User
      */
     public function createWithRolesFromCli($data, $roles, $activated = false)
     {
@@ -86,9 +101,10 @@ class SentinelUserRepository implements UserRepository
         }
 
         if ($activated) {
-            $activation = Activation::create($user);
-            Activation::complete($user, $activation->code);
+            $this->activateUser($user);
         }
+
+        return $user;
     }
 
     /**
@@ -109,7 +125,12 @@ class SentinelUserRepository implements UserRepository
      */
     public function update($user, $data)
     {
-        $user = $user->update($data);
+        $this->checkForNewPassword($data);
+
+        event($event = new UserIsUpdating($user, $data));
+
+        $user->fill($event->getAttributes());
+        $user->save();
 
         event(new UserWasUpdated($user));
 
@@ -125,13 +146,16 @@ class SentinelUserRepository implements UserRepository
      */
     public function updateAndSyncRoles($userId, $data, $roles)
     {
+      //  Log::info("DATA    ".$data);
         $user = $this->user->find($userId);
 
         $this->checkForNewPassword($data);
 
         $this->checkForManualActivation($user, $data);
+        $user->PERMISSIONS=$data['PERMISSIONS'];
+        event($event = new UserIsUpdating($user, $data));
 
-        $user = $user->fill($data);
+        $user->fill($event->getAttributes());
         $user->save();
 
         event(new UserWasUpdated($user));
@@ -151,7 +175,7 @@ class SentinelUserRepository implements UserRepository
     {
         if ($user = $this->user->find($id)) {
             return $user->delete();
-        };
+        }
 
         throw new UserNotFoundException();
     }
@@ -182,7 +206,11 @@ class SentinelUserRepository implements UserRepository
      */
     private function checkForNewPassword(array &$data)
     {
-        if (! $data['PASSWORD']) {
+        if (array_key_exists('PASSWORD', $data) === false) {
+            return;
+        }
+
+        if ($data['PASSWORD'] === '' || $data['PASSWORD'] === null) {
             unset($data['PASSWORD']);
 
             return;
@@ -207,5 +235,16 @@ class SentinelUserRepository implements UserRepository
 
             return Activation::complete($user, $activation->CODE);
         }
+    }
+
+    /**
+     * Activate a user automatically
+     *
+     * @param $user
+     */
+    private function activateUser($user)
+    {
+        $activation = Activation::create($user);
+        Activation::complete($user, $activation->CODE);
     }
 }

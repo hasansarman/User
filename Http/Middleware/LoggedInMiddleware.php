@@ -1,7 +1,14 @@
-<?php namespace Modules\User\Http\Middleware;
+<?php
 
-use Modules\Core\Contracts\Authentication;
+namespace Modules\User\Http\Middleware;
 
+use Modules\User\Contracts\Authentication;
+
+/**
+ * Class LoggedInMiddleware
+ * @package Modules\User\Http\Middleware
+ * Middleware to make sure affected routes need a logged in user
+ */
 class LoggedInMiddleware
 {
     /**
@@ -22,8 +29,8 @@ class LoggedInMiddleware
      */
     public function handle($request, \Closure $next)
     {
-        if (! $this->auth->check()) {
-            return redirect()->guest('auth/login');
+        if ($this->auth->check() === false) {
+            return redirect()->guest(config('asgard.user.config.redirect_route_not_logged_in', 'auth/login'));
         }
 
         return $next($request);

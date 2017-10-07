@@ -62,14 +62,14 @@
                                 </td>
                                 <td>
                                     <a href="{{ URL::route('admin.user.user.edit', [$user->ID]) }}">
-                                        {{ $user->CREATED_AT }}
+                                        {{ $user->IDATE }}
                                     </a>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('admin.user.user.edit', [$user->ID]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <?php if ($user->ID != $currentUser->ID): ?>
-                                            <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.user.destroy', [$user->id]) }}"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.user.user.destroy', [$user->ID]) }}"><i class="fa fa-trash"></i></button>
                                         <?php endif; ?>
                                     </div>
                                 </td>

@@ -25,14 +25,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group{{ $errors->has('NAME') ? ' has-error' : '' }}">
                                     {!! Form::label('NAME', trans('user::roles.form.name')) !!}
-                                    {!! Form::text('NAME', Input::old('NAME'), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
+                                    {!! Form::text('NAME', old('NAME'), ['class' => 'form-control', 'data-slug' => 'source', 'placeholder' => trans('user::roles.form.name')]) !!}
                                     {!! $errors->first('NAME', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group{{ $errors->has('SLUG') ? ' has-error' : '' }}">
                                     {!! Form::label('SLUG', trans('user::roles.form.slug')) !!}
-                                    {!! Form::text('SLUG', Input::old('SLUG'), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
+                                    {!! Form::text('SLUG', old('SLUG'), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('user::roles.form.slug')]) !!}
                                     {!! $errors->first('SLUG', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
@@ -44,7 +44,6 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('user::button.create') }}</button>
-                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
                     <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.user.role.index')}}"><i class="fa fa-times"></i> {{ trans('user::button.cancel') }}</a>
                 </div>
             </div>

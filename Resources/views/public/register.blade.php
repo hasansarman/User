@@ -10,21 +10,21 @@
 
     <div class="register-box-body">
         <p class="login-box-msg">{{ trans('user::auth.register') }}</p>
-
+        @include('partials.notifications')
         {!! Form::open(['route' => 'register.post']) !!}
             <div class="form-group has-feedback {{ $errors->has('EMAIL') ? ' has-error has-feedback' : '' }}">
-                <input type="EMAIL" name="EMAIL" class="form-control" autofocus
+                <input type="email" name="EMAIL" class="form-control" autofocus
                        placeholder="{{ trans('user::auth.email') }}" value="{{ old('EMAIL') }}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 {!! $errors->first('EMAIL', '<span class="help-block">:message</span>') !!}
             </div>
             <div class="form-group has-feedback {{ $errors->has('PASSWORD') ? ' has-error has-feedback' : '' }}">
-                <input type="PASSWORD" name="PASSWORD" class="form-control" placeholder="{{ trans('user::auth.password') }}">
+                <input type="password" name="PASSWORD" class="form-control" placeholder="{{ trans('user::auth.password') }}">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 {!! $errors->first('PASSWORD', '<span class="help-block">:message</span>') !!}
             </div>
             <div class="form-group has-feedback {{ $errors->has('PASSWORD_CONFIRMATION') ? ' has-error has-feedback' : '' }}">
-                <input type="PASSWORD" name="PASSWORD_CONFIRMATION" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
+                <input type="password" name="PASSWORD_CONFIRMATION" class="form-control" placeholder="{{ trans('user::auth.password confirmation') }}">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 {!! $errors->first('PASSWORD_CONFIRMATION', '<span class="help-block">:message</span>') !!}
             </div>
